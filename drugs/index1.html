@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Molecular Database</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+    .button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .button-container button {
+            background-color: #f61fb2;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .button-container button:hover {
+            background-color: #2980b9;
+        }
+</style>
+<body>
+    <div class="container">
+        <header>
+            <h1>Drug Molecular Database</h1>
+            <p>Search by drug code or name to view molecular composition</p><br>
+            <big style="font-family:serif;font-size: 30px;">NOTE : Preventing the counterfit drug ,Given result is genuine </big>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by drug code or name...">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </div>
+
+        <div id="drugGrid" class="drug-grid"></div>
+        
+        <div id="noResults" class="no-results hidden">
+            <p>No drugs found matching your search</p>
+        </div>
+    </div>
+
+    <!-- Button to redirect to the Manufacturing Details page -->
+    <div class="button-container">
+        <button onclick="window.location.href='index2.html'">View Manufacturing Details</button>
+    </div>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
