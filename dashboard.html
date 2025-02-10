@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        
+        header {
+            background: linear-gradient(90deg, #ff4b1f, #454438, #4c65af );
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+       
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dashboard-container h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-container p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+       
+        .cards {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: rgb(196, 240, 238);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            font-size: 1.5em;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1em;
+            color: #777;
+        }
+
+        .card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+
+       
+        .website-info {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #489fcb;
+            border-radius: 10px;
+            color: white;
+            text-align: left;
+        }
+
+        .website-info h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .website-info p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .website-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .website-info ul li {
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .website-info ul li::before {
+            content: "✔";
+            margin-right: 10px;
+            color: #2ecc71;
+        }
+
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="home.html" class="home">🏠 <strong>Home</strong></a>
+        <a href="index.html" class="logout">🚪 <strong>Logout</strong></a>
+    </nav>
+</header>
+
+<div class="dashboard-container">
+    <h1>Welcome to the Admin Dashboard</h1>
+    <p>You have successfully logged in. Manage your website efficiently with the tools below.</p>
+
+   
+    <div class="cards">
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Users Icon">
+            <h2>Users</h2>
+            <p>View and manage all registered users.</p>
+        </div>
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Orders Icon">
+            <h2>Orders</h2>
+            <p>Track and manage customer orders.</p>
+        </div>
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Analytics Icon">
+            <h2>Analytics</h2>
+            <p>Access detailed website analytics.</p>
+        </div>
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/126/126472.png" alt="Settings Icon">
+            <h2>Settings</h2>
+            <p>Configure website settings and preferences.</p>
+        </div>
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1827/1827504.png" alt="Notifications Icon">
+            <h2>Notifications</h2>
+            <p>Manage alerts and notifications.</p>
+        </div>
+    </div>
+
+    
+    <div class="website-info">
+        <h2>About This Website</h2>
+        <p>
+            <strong>This platform is designed to provide a seamless experience for managing pharmaceutical supply chains. 
+            It offers tools for tracking drugs, managing orders, and ensuring the authenticity of medications.</strong>
+        </p>
+        <ul>
+            <li>Track drugs from raw materials to retailers.</li>
+            <li>Ensure transparency and prevent counterfeit drugs.</li>
+            <li>Access real-time analytics and reports.</li>
+            <li>Manage users and roles efficiently.</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Admin Dashboard. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

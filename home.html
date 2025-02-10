@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Status Update</title> 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 150vh;
+            min-height: 100vh; 
+            margin: 0;
+        }
+        .content {
+            flex: 1; 
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+        }
+        nav {
+            background: linear-gradient(90deg, #5c30d6, #fa3fb2, #5305a1 );
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1% 10px;
+            width: 100%;
+            font-family : "Times New Roman", Times, serif
+        }
+        .logo-container {
+            width: 130px; 
+            height: 65.5px; 
+            display: flex;
+            align-items:center;
+            overflow: hidden;
+        }
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            color: rgb(37, 9, 80);
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 12px;
+            transition: background0.3s;
+        }
+        .nav-links a:hover {
+            background-color: #575757;
+            border-radius: 5px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            width: 80%;
+        }
+        .sidebar {
+            background-color: #5f367c;
+            color: white;
+            padding: 20px;
+            border-radius: 20%;
+            border-style :groove;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            font-size: 20px;
+            transition: 0.3s;
+            font-family : "Times New Roman", Times, serif
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+        }
+
+        .sidebar:hover {
+            background-color: #575757;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                margin-top: 10px;
+            }
+
+            .container {
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+        footer {
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            background-color: #222;
+            color: rgb(255, 255, 255);
+            padding: 40px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            min-height: 10vh; 
+            margin-top: auto;
+    
+        }
+        footer div {
+            display: flex;
+            gap: 50px; 
+            justify-content: center; 
+            align-items: center; 
+            flex-direction: row; 
+        }
+        .form-container {
+            background-color: white;
+            padding: 10px;
+            border-radius: 2px;
+            box-shadow: 0 4px 10px rgba(70, 20, 20, 0.1);
+            width: 160%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 90px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: space-around;
+        }
+        .form-group label {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .form-actions button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background0.3s ease;
+        }
+
+        .form-actions button:hover {
+            background-color: #2980b9;
+        }
+
+        .form-actions button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-actions button {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+        #instantSolution {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0f7fa;
+            border-radius: 5px;
+        }
+        .table-section {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 900px;
+        }
+        .search-container {
+            margin-bottom: 10px;
+        }
+        .search-container input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .search-container button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background0.3s;
+        }
+        .search-container button:hover {
+            background-color: #2980b9;
+        }
+        .table-wrapper {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #928c8c;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 2px solid #080808;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        #nextPageButton {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #192660;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background0.3s;
+        }
+        #nextPageButton:hover {
+            background-color: #0f2469;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home" class="logo-container">
+            <img src="/PSC/index/images/logo.png" alt="Logo" class="logo">
+        </a>
+        <div class="nav-links">
+            <a href="/PSC/index/header/profile/profile.html"><strong>Profile</strong></a>
+            <a href="https://www.pharmabiz.com/"><strong>Updates</strong></a>
+            <a href="/PSC/index/header/track/track.html"><strong>orders</strong></a>
+            <a href="/PSC/index/header/about/about.html"><strong>About</strong></a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="sidebar"><a href="RAW-MATERIAL SUPPLIER.HTML">Raw-Material Supplier</a></div>
+        <div class="sidebar"><a href="MANUFACTURER.html">Manufacturer</a></div>
+        <div class="sidebar"><a href="DISTRIBUTOR.HTML">Distributor</a></div>
+        <div class="sidebar"><a href="RETAILER.HTML">Retailer</a></div>
+    </div>
+
+    <div class="form-container">
+        <h2>General Check-up</h2>
+        <form id="checkupForm">
+            <div class="form-group">
+                <label for="SelectDisease">Select Disease or Condition</label>
+                <select id="SelectDisease" name="SelectDisease" onchange="provideSolution()">
+                    <option value="">Select Disease/Condition</option>
+                    <option value="Fever">Fever</option>
+                    <option value="Cold">Cold</option>
+                    <option value="Cough">Cough</option>
+                    <option value="Headache">Headache</option>
+                    <option value="Asthma">Asthma</option>
+                    <option value="Diabetes">Diabetes</option>
+                    <option value="Hypertension">Hypertension</option>
+                    <option value="Allergy">Allergy</option>
+                    <option value="Fatigue">Fatigue</option>
+                    <option value="Insomnia">Insomnia</option>
+                    <option value="Stomach Ache">Stomach Ache</option>
+                    <option value="Back Pain">Back Pain</option>
+                    <option value="Joint Pain">Joint Pain</option>
+                    <option value="Acid Reflux">Acid Reflux</option>
+                    <option value="Skin Rash">Skin Rash</option>
+                    <option value="Heart Attack">Heart Attack</option>
+                    <option value="Anxiety">Anxiety</option>
+                    <option value="Depression">Depression</option>
+                    <option value="Arthritis">Arthritis</option>
+                    <option value="Asthma">Asthma</option>
+                    <option value="Diarrhea">Diarrhea</option>
+                    <option value="Nausea">Nausea</option>
+                    <option value="Vomiting">Vomiting</option>
+                    <option value="Cholesterol">Cholesterol</option>
+                    <option value="Gastritis">Gastritis</option>
+                    <option value="Migraine">Migraine</option>
+                    <option value="Anemia">Anemia</option>
+                    <option value="Kidney Stones">Kidney Stones</option>
+                    <option value="Ulcers">Ulcers</option>
+                    <option value="Obesity">Obesity</option>
+                    <option value="Thyroid">Thyroid</option>
+                    <option value="Cancer">Cancer</option>
+                </select>
+            </div>
+
+            <div id="instantSolution"></div>
+            
+            <div class="form-actions">
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function provideSolution() {
+            const disease = document.getElementById("SelectDisease").value;
+            const solutionDiv = document.getElementById("instantSolution");
+
+            let solution = "";
+            switch(disease) {
+                case "Fever":
+                    solution = "Take rest, hydrate well, and use fever-reducing medication like paracetamol.";
+                    break;
+                case "Cold":
+                    solution = "Keep yourself warm, drink fluids, and consider taking antihistamines.";
+                    break;
+                case "Cough":
+                    solution = "Take cough syrup or honey-lemon tea and stay hydrated.";
+                    break;
+                case "Headache":
+                    solution = "Rest, stay hydrated, and use pain relievers if necessary.";
+                    break;
+                case "Asthma":
+                    solution = "Use an inhaler as prescribed, avoid triggers, and seek medical help if symptoms worsen.";
+                    break;
+                case "Diabetes":
+                    solution = "Monitor your blood sugar levels, take prescribed medication, and maintain a healthy diet.";
+                    break;
+                case "Hypertension":
+                    solution = "Reduce salt intake, exercise regularly, and take prescribed medication.";
+                    break;
+                case "Allergy":
+                    solution = "Take antihistamines, avoid allergens, and consult with your doctor for treatment options.";
+                    break;
+                case "Fatigue":
+                    solution = "Ensure adequate sleep, manage stress, and eat a balanced diet.";
+                    break;
+                default:
+                    solution = "Please select a disease or condition for a solution.";
+            }
+
+            solutionDiv.innerHTML = `<p><strong>Suggested Solution:</strong> ${solution}</p>`;
+        }
+
+        document.getElementById("checkupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Form submitted successfully!");
+        });
+    </script>
+</body>
+</html>
+
+
+<div class="form-container">
+    <h2>Drug Search</h2>
+    <div class="table-wrapper">
+        <table id="drugTable">
+            <thead>
+                <tr>
+                    <th>Drug Code</th>
+                    <th>Drug Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>NDC: 0025-2911</td>
+                    <td>Paracetamol</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0031-8310</td>
+                    <td>Ibuprofen</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0040-2045</td>
+                    <td>Amoxicillin</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0069-0365</td>
+                    <td>Metformin</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0094-2986</td>
+                    <td>Atorvastatin</td>
+                </tr>
+                <tr>
+                    <td>NDC: 43598-0573</td>
+                    <td>Azithromycin</td>
+                </tr>
+                <tr>
+                    <td>NDC: 31722-0720</td>
+                    <td>Losartan</td>
+                </tr>
+                <tr>
+                    <td>NDC: 68180-988</td>
+                    <td>Amlodipine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 00378-6685</td>
+                    <td>Omeprazole</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0002-6160</td>
+                    <td>Furosemide</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0046-2789</td>
+                    <td>Lisinopril</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0071-0623</td>
+                    <td>Hydrochlorothiazide</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0115-0989</td>
+                    <td>Levothyroxine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0054-0572</td>
+                    <td>Prednisone</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0116-0266</td>
+                    <td>Diazepam</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0603-4483</td>
+                    <td>Clopidogrel</td>
+                </tr>
+                <tr>
+                    <td>NDC: 64764-1159</td>
+                    <td>Alprazolam</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0409-0600</td>
+                    <td>Ranitidine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0022-0600</td>
+                    <td>Simvastatin</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0039-1035</td>
+                    <td>Diphenhydramine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0025-1407</td>
+                    <td>Tramadol</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0063-1243</td>
+                    <td>Paroxetine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0052-4642</td>
+                    <td>Citalopram</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0033-0513</td>
+                    <td>Gabapentin</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0009-4331</td>
+                    <td>Sertraline</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0034-8762</td>
+                    <td>Amiodarone</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0045-0522</td>
+                    <td>Metoprolol</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0052-4637</td>
+                    <td>Venlafaxine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0069-0812</td>
+                    <td>Prednisolone</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0084-0160</td>
+                    <td>Chloroquine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0143-9244</td>
+                    <td>Folic Acid</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0591-1266</td>
+                    <td>Insulin Glargine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0781-1841</td>
+                    <td>Levocetirizine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0904-5456</td>
+                    <td>Clonazepam</td>
+                </tr>
+                <tr>
+                    <td>NDC: 50580-1677</td>
+                    <td>Duloxetine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0527-0189</td>
+                    <td>Ciprofloxacin</td>
+                </tr>
+                <tr>
+                    <td>NDC: 13668-0709</td>
+                    <td>Baclofen</td>
+                </tr>
+                <tr>
+                    <td>NDC: 11008-3222</td>
+                    <td>Trifluoperazine</td>
+                </tr>
+                <tr>
+                    <td>NDC: 0071-0599</td>
+                    <td>Spironolactone</td>
+                </tr>
+                <tr>
+                    <td>NDC: 54868-2100</td>
+                    <td>Hydroxyzine</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
+    </div>
+    <button  id="nextPageButton" onclick="navigateToDetails()" ><strong>View Drug Details</strong></button>
+</div>
+
+<footer>
+    <p>&copy; 2025 THIS WEB IS UNDER STUDENTS OF IARE.</p>
+    <div>
+        <a href="https://www.instagram.com/_jeeva_66?igsh=aWxsY2NuYmF1Z2do"><img src="/PSC/index/images/insta.png" alt="Instagram" width="40"></a>
+        <a href="https://www.linkedin.com/in/jeeva-madhava-908106279?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><img src="/PSC/index/images/link.png" alt="LinkedIn" width="35"></a>
+    </div>
+</footer>
+<script>
+    function searchDrug() {
+        let input = document.getElementById("drugCodeInput").value.trim();
+        let table = document.getElementById("drugTable");
+        let rows = table.getElementsByTagName("tr");
+        let found = false;
+
+        for (let i = 1; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName("td");
+            if (cells.length > 0) {
+                let code = cells[0].textContent || cells[0].innerText;
+                if (code === input) {
+                    alert("Drug Found: " + cells[1].textContent);
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        if (!found) {
+            alert("No drug found with this code.");
+        }
+    }
+
+    function navigateToDetails() {
+        window.location.href = "/PSC/index/drugs/index1.html"; 
+    }
+</script>
+
+<style>
+    .table-section {
+        margin-top:0px;
+        text-align: center;
+        width: 80%;
+    }
+
+    .search-container {
+        margin-bottom:10px;
+    }
+
+    .search-container input {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .search-container button {
+        padding: 10px 15px;
+        font-size: 16px;
+        border: none;
+        background-color: #3498db;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background0.3s;
+    }
+
+    .search-container button:hover {
+        background-color: #2980b9;
+    }
+
+    .table-wrapper {
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 2px solid #080808;
+        padding: 10px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f4f4f4;
+    }
+
+    #nextPageButton {
+        margin-top: 20px;
+        padding: 12px 20px;
+        background-color: #5e2aab;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background0.3s;
+    }
+    .form-container {
+            background-color: rgb(233, 227, 227);
+            padding: 20px;
+            border-radius: 2px;
+            box-shadow: 0 4px 10px rgba(37, 26, 100, 0.1);
+            width: 160%;
+            text-decoration: none;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 90px;
+        }
+
+    #nextPageButton:hover {
+        background-color: #594eef;
+    }
+</style>

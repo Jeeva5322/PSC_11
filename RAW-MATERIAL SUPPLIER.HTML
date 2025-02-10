@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Medicine Status</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/PSC/index/images/chain.jpg');
+            background-size: cover;
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            }
+
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient( rgba(0, 0, 0, 0.1),rgb(38, 38, 102),rgb(161, 64, 64));
+            backdrop-filter: blur(11px);
+            padding: 130px;
+            width: 300px;
+            border-radius: 20px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.6);
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        input, select {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            background: rgba(255, 255, 255, 1);
+            outline: none;
+            box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Button Styles */
+        button {
+            width: 10%8;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0px 4px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        .tick {
+            color: green;
+            font-size: 20px;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="loginContainer">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+            <p class="note">Note: Only registered users can perform these actions.</p>
+            <p id="loginMessage"></p>
+          <a href="/PSC/index/home.html">Back</a>
+        </form>
+    </div>
+
+    <div class="container" id="updateStatusContainer" style="display: none;">
+        <h2>Update Medicine Status</h2>
+        <label for="medicine-id">Medicine ID:</label>
+        <input type="text" id="medicine-id" placeholder="Enter Medicine ID">
+        
+        <label for="status">Select Status:</label>
+        <select id="status">
+            <option value="Manufactured">Manufactured</option>
+            <option value="In Transit">In Transit</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Expired">Expired</option>
+        </select>
+        
+        <button onclick="updateStatus()">Update Status</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const validUsername = "jeevan";
+        const validPassword = "jeevan123";
+
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const loginMessage = document.getElementById("loginMessage");
+
+            if (username === validUsername && password === validPassword) {
+                loginMessage.innerHTML = "Login successful! Redirecting...";
+                loginMessage.style.color = "white";
+                setTimeout(() => {
+                    document.getElementById("loginContainer").style.display = "none";
+                    document.getElementById("updateStatusContainer").style.display = "block";
+                }, 1000);
+            } else {
+                loginMessage.innerHTML = "Invalid username or password!";
+                loginMessage.style.color = "red";
+            }
+        });
+        function updateStatus() {
+            let medicineId = document.getElementById("medicine-id").value;
+            let status = document.getElementById("status").value;
+            let message = document.getElementById("message");
+
+            if (medicineId.trim() === "") {
+                message.innerHTML = "Please enter a valid Medicine ID.";
+                message.style.color = "red";
+                return;
+            }
+            message.innerHTML = `Medicine ID: ${medicineId} status updated to ${status}`;
+            message.style.color = "white";
+        }
+    </script>
+</body>
+</html>

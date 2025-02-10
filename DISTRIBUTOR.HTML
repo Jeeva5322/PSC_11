@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DISTRIBUTORS</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/PSC/index/images/chain.jpg');
+            background-size: cover;
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+
+        .video-bg {
+            display: none; 
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient( rgba(0, 0, 0, 0.1),rgb(38, 38, 102),rgb(161, 64, 64));
+            backdrop-filter: blur(11px);
+            padding: 130px;
+            width: 300px;
+            border-radius: 20px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.6);
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        input, select {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(248, 246, 246, 0.8);
+            font-size: 14px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            background: rgb(49, 22, 125);
+            outline: none;
+            box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+        }
+        button {
+            width: 100px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0px 4px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        .tick {
+            color: green;
+            font-size: 20px;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <video class="video-bg" autoplay loop muted>
+        <source src="https://www.videvo.net/videvo_files/converted/2016_08/preview/160723A_111_ComputerCoding_1080p.mp4" type="video/mp4">
+    </video>
+    
+    <div class="container" id="loginContainer">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required><br>
+            <input type="password" id="password" placeholder="Password" required><br>
+            <button type="submit">Login</button>
+            <p style="color: #ffcc00; font-size: 1px;">Note: Registered role users can only perform these actions.</p>
+            <p>Don't have an account? <a href="#" onclick="toggleForm()">Register here</a></p>
+        </form>
+    </div>
+    
+    <div class="container" id="registerContainer" style="display: none;">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" id="newUsername" placeholder="Username" required><br>
+            <input type="email" id="email" placeholder="Email" required><br>
+            <input type="password" id="newPassword" placeholder="Create Password" required><br>
+            <select id="role" required>
+                <option value="">Select Role</option>
+                <option value="Distributor">Distributor</option>
+            </select><br>
+            <button type="submit">Register</button>
+            <p>Already have an account? <a href="#" onclick="toggleForm()">Login here</a></p>
+        </form>
+    </div>
+
+    <div class="container" id="dashboardContainer" style="display: none;">
+        <h2>Dashboard</h2>
+        <p>Welcome, <span id="loggedInUser"></span>!</p>
+        <p class="tick">✔</p>
+        <input type="text" id="medicineId" placeholder="Enter Medicine ID" disabled><br>
+        <button id="updateDistributions" disabled>Update Distributions</button>
+        <p style="color: #ffcc00; font-size: 12px;">Note: Registered users can only perform these actions.</p>
+    </div>
+
+    <script>
+        const users = {
+            "bindu": "bindu123"
+        };
+
+        function toggleForm() {
+            document.getElementById("loginContainer").style.display = 
+                document.getElementById("loginContainer").style.display === "none" ? "block" : "none";
+            document.getElementById("registerContainer").style.display = 
+                document.getElementById("registerContainer").style.display === "none" ? "block" : "none";
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            if (users[username] && users[username] === password) {
+                alert("Login successful!");
+                document.getElementById("loginContainer").style.display = "none";
+                document.getElementById("dashboardContainer").style.display = "block";
+                document.getElementById("loggedInUser").textContent = username;
+                document.querySelector(".tick").style.display = "inline";
+                document.getElementById("medicineId").disabled = false;
+                document.getElementById("updateDistributions").disabled = false;
+            } else {
+                alert("Invalid username or password!");
+            }
+        });
+
+        document.getElementById("updateDistributions").addEventListener("click", function() {
+            const medicineId = document.getElementById("medicineId").value;
+            if (medicineId) {
+                alert(`Distributions updated for Medicine ID: ${medicineId}`);
+            } else {
+                alert("Please enter a valid Medicine ID.");
+            }
+        });
+    </script>
+</body>
+</html>
